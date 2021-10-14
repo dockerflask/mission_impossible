@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <title>{{ brand_name }}</title>
+    <style type="text/css">
+        body { background-color: DimGray; }
+        #footer { position: fixed; bottom: 0; }
+        #content { position: absolute; left: 50%; top: 50%; margin-right: -50%; transform: translate(-50%, -50%); }
+    </style>
+    {% endblock %}
+</head>
+<body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+        {% block footer %}
+        &copy; Copyright 2021 by <a href="https://bit.ly/3lDSls5">root</a>.
+        {% endblock %}
+    </div>
+</body>
+</html>
