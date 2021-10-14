@@ -1,0 +1,30 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Docker Login
+      uses: docker/login-action@v1.10.0
+      with:
+        registry: ${{ secrets.HUB_URL }}
+        username: ${{ secrets.HUB_USER }}
+        password: ${{ secrets.HUB_PASS }}
+    
+    
+    - name: Build the Docker image
+      run:
+        docker build --tag ${{ secrets.HUB_URL }}/mission_impossible:${{ github.sha }} .
+        docker push ${{ secrets.HUB_URL }}/mission_impossible:${{ github.sha }}
+        #sed -i'' -e 's/HUB_URL/${{ secrets.HUB_URL }}/g' -e 's/IMAGE_LABEL/${{ gituhb.sha }}/g' k8s.yaml
+        #kubectl apply -f k8s.yaml
