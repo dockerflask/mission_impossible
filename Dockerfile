@@ -3,7 +3,7 @@ FROM python:alpine3.7
 ENV REDIS_HOST='localhost'
 ENV REDIS_PORT=6379
 ENV REDIS_PASSWORD=''
-ENV BRAND_NAME='Mission Imposibble'
+ENV BRAND_NAME='Mission Impossible'
 
 COPY . /app
 WORKDIR /app
