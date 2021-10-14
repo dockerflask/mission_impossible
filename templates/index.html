@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ brand_name }}</h1>
+
+<p>This is a simple Flask app which allows you to store key-value pairs in Redis.</p><br>
+<button onclick="window.location.href='{{ url_for('post') }}';">Post</button>
+<button onclick="window.location.href='{{ url_for('get') }}';">Get</button>
+{% endblock %}
