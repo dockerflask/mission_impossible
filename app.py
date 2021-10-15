@@ -19,19 +19,19 @@ def post():
     return render_template('post.html')
 
 
-@ app.route('/get', methods=['GET', 'POST'])
+@app.route('/get', methods=['GET', 'POST'])
 def get():
     if request.method == 'POST':
         return redirect(f"get_value/{request.form['key']}")
     return render_template('get.html')
 
 
-@ app.route('/get_value/<key>', methods=['GET'])
+@app.route('/get_value/<key>', methods=['GET'])
 def get_value(key):
     return r.get(key)
 
 
-@ app.route('/add_value', methods=['POST'])
+@app.route('/add_value', methods=['POST'])
 def add_value():
     r.set(request.form['key'], request.form['value'])
 

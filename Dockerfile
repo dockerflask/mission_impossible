@@ -1,10 +1,4 @@
 FROM python:alpine3.7
-
-ENV REDIS_HOST='localhost'
-ENV REDIS_PORT=6379
-ENV REDIS_PASSWORD=''
-ENV BRAND_NAME='Mission Impossible'
-
 COPY . /app
 WORKDIR /app
 RUN pip install --disable-pip-version-check -r requirements.txt

@@ -6,7 +6,7 @@ metadata:
     app: flask
 spec:
   ports:
-    - port: 5000
+  - port: 5000
   selector:
     app: flask
     tier: frontend
@@ -31,6 +31,18 @@ spec:
         app: flask
         tier: frontend
     spec:
+      initContainers:
+      - name: wait-for-redis
+        image: redis:latest
+        imagePullPolicy: IfNotPresent
+        command:
+        - /bin/bash
+        args:
+        - '-c'
+        - 'until redis-cli -h $REDIS_HOST -p $REDIS_PORT ping; do echo "$(date): waiting for redis..."; sleep 3; done'
+        envFrom:
+        - configMapRef:
+            name: flask
       containers:
       - name: flask
         image: dockerflask/mission-impossible:latest
@@ -38,3 +50,16 @@ spec:
         ports:
         - containerPort: 5000
           name: flask
+        envFrom:
+        - configMapRef:
+            name: flask
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flask
+  labels:
+    app: flask
+data:
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
