@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask
+  labels:
+    app: flask
+spec:
+  ports:
+    - port: 5000
+  selector:
+    app: flask
+    tier: frontend
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask
+  labels:
+    app: flask
+spec:
+  selector:
+    matchLabels:
+      app: flask
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: flask
+        tier: frontend
+    spec:
+      containers:
+      - name: flask
+        image: dockerflask/mission-impossible:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+          name: flask
