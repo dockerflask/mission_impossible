@@ -1,11 +1,11 @@
 from flask import Flask, render_template, redirect, url_for, request, flash, get_flashed_messages
 import os
 import redis
-import secrets
+# import secrets
 
 
 app = Flask(__name__)
-app.secret_key = secrets.token_urlsafe(32)
+# app.secret_key = secrets.token_urlsafe(32)
 r = redis.Redis(host=os.environ['REDIS_HOST'],
                 port=os.environ['REDIS_PORT'],
                 password='')
@@ -43,4 +43,4 @@ def add_value():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(host='0.0.0.0')
