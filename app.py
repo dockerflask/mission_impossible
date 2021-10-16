@@ -31,9 +31,8 @@ def get():
 
 @app.route('/get_value/<key>', methods=['GET'])
 def get_value(key):
-    flash(f'Key:{key} Value:{r.get(key)}')
+    flash(f'Key:{key} Value:{str(r.get(key))}')
     return redirect(url_for('index'))
-    #return render_template('index.html')
 
 
 @app.route('/add_value', methods=['POST'])
@@ -41,7 +40,6 @@ def add_value():
     r.set(request.form['key'], request.form['value'])
     flash(f"The Pair {request.form['key']}:{request.form['value']} has been stored successfully!")
     return redirect(url_for('index'))
-    #return render_template('index.html')
 
 
 if __name__ == '__main__':
