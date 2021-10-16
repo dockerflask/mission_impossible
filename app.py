@@ -1,9 +1,11 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 import os
 import redis
+import secrets
 
 
 app = Flask(__name__)
+app.secret_key = secrets.token_urlsafe(32)
 r = redis.Redis(host=os.environ['REDIS_HOST'],
                 port=os.environ['REDIS_PORT'],
                 password='')
