@@ -23,5 +23,5 @@ jobs:
     
     - name: Build the Docker image
       run: |
-        docker build --tag dockerflask/mission-impossible:${{ github.sha }} .
-        docker push dockerflask/mission-impossible:${{ github.sha }}
+        docker build --tag dockerflask/mission-impossible:latest .
+        docker push dockerflask/mission-impossible:latest
