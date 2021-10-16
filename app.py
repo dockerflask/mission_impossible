@@ -31,7 +31,7 @@ def get():
 
 @app.route('/get_value/<key>', methods=['GET'])
 def get_value(key):
-    flash(f'Key:{key} Value:{str(r.get(key))}')
+    flash(f'Key:{key} Value:{get(key).decode()}')
     return redirect(url_for('index'))
 
 
