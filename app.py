@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, url_for, request, flash
 import os
 import redis
 
@@ -6,12 +6,12 @@ import redis
 app = Flask(__name__)
 r = redis.Redis(host=os.environ['REDIS_HOST'],
                 port=os.environ['REDIS_PORT'],
-                password=os.environ['REDIS_PASSWORD'])
+                password='')
 
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html', brand_name=os.environ['BRAND_NAME'])
+    return render_template('index.html')
 
 
 @app.route('/post', methods=['GET'])
@@ -28,14 +28,15 @@ def get():
 
 @app.route('/get_value/<key>', methods=['GET'])
 def get_value(key):
-    return r.get(key)
+    flash(f'Key:{key}\tValue:{r.get(key)}')
+    return redirect(url_for(index))
 
 
 @app.route('/add_value', methods=['POST'])
 def add_value():
     r.set(request.form['key'], request.form['value'])
-
-    return 'Done!'
+    flash(f"{request.form['key']}:{request.form['value']}\thas been stored successfully!")
+    return redirect(url_for(index))
 
 
 if __name__ == '__main__':
