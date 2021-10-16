@@ -45,7 +45,7 @@ spec:
             name: flask
       containers:
       - name: flask
-        image: dockerflask/mission-impossible:latest
+        image: dockerflask/mission-impossible
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
