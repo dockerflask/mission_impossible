@@ -30,14 +30,14 @@ def get():
 
 @app.route('/get_value/<key>', methods=['GET'])
 def get_value(key):
-    flash(f'Key:{key}\tValue:{r.get(key)}')
+    flash(f'Key:{key} Value:{r.get(key)}')
     return render_template('index.html')
 
 
 @app.route('/add_value', methods=['POST'])
 def add_value():
     r.set(request.form['key'], request.form['value'])
-    flash(f"{request.form['key']}:{request.form['value']}\thas been stored successfully!")
+    flash(f"The Pair Key:{request.form['key']} Value:{request.form['value']} has been stored successfully!")
     return render_template('index.html')
 
 
