@@ -53,6 +53,10 @@ spec:
         envFrom:
         - configMapRef:
             name: flask
+        resources:
+          limits:
+            cpu: "1"
+            memory: "2000Mi"
 ---
 apiVersion: v1
 kind: ConfigMap
