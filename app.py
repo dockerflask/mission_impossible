@@ -40,7 +40,7 @@ def get_value(key):
 def add_value():
     r.set(request.form['key'], request.form['value'])
     flash(f"The Pair {request.form['key']}:{request.form['value']} has been stored successfully!")
-    print(f'Debug msg (Post) Key:{request.form['key']} {Value:request.form['value']}')
+    print(f"Debug msg (Post) Key:{request.form['key']} Value:{request.form['value']}")
     return redirect(url_for('index'))
 
 
