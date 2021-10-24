@@ -32,6 +32,7 @@ def get():
 @app.route('/get_value/<key>', methods=['GET'])
 def get_value(key):
     flash(f'Key:{key} Value:{r.get(key).decode()}')
+    print(f'Debug msg (Get) Key:{key} Value:{r.get(key).decode()}')
     return redirect(url_for('index'))
 
 
@@ -39,6 +40,7 @@ def get_value(key):
 def add_value():
     r.set(request.form['key'], request.form['value'])
     flash(f"The Pair {request.form['key']}:{request.form['value']} has been stored successfully!")
+    print(f'Debug msg (Post) Key:{request.form['key']} {Value:request.form['value']}')
     return redirect(url_for('index'))
 
 
