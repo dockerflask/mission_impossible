@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: flask
+  name: flask-srv
   labels:
     app: flask
 spec:
@@ -15,7 +15,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask
+  name: flask-deployment
   labels:
     app: flask
 spec:
@@ -31,25 +31,25 @@ spec:
         app: flask
         tier: frontend
     spec:
-      initContainers:
-      - name: wait-for-redis
-        image: redis:latest
-        imagePullPolicy: IfNotPresent
-        command:
-        - /bin/bash
-        args:
-        - '-c'
-        - 'until redis-cli -h $REDIS_HOST -p $REDIS_PORT ping; do echo "$(date): waiting for redis..."; sleep 3; done'
-        envFrom:
-        - configMapRef:
-            name: flask
+      # initContainers:
+      # - name: wait-for-redis
+      #   image: redis:latest
+      #   imagePullPolicy: IfNotPresent
+      #   command:
+      #   - /bin/bash
+      #   args:
+      #   - '-c'
+      #   - 'until redis-cli -h $REDIS_HOST -p $REDIS_PORT ping; do echo "$(date): waiting for redis..."; sleep 3; done'
+      #   envFrom:
+      #   - configMapRef:
+      #       name: flask
       containers:
       - name: flask
-        image: dockerflask/mission-impossible
+        image: "dockerflask/mission-impossible:latest"
         imagePullPolicy: Always
         ports:
-        - containerPort: 5000
-          name: flask
+        - name: flask
+          containerPort: 5000
         envFrom:
         - configMapRef:
             name: flask
@@ -61,7 +61,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: flask
+  name: flask-configmap
   labels:
     app: flask
 data:
